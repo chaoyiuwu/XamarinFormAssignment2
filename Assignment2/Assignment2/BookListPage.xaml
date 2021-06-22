@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Assignment2.BookListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Entry Text="New List Name" x:Name="NewListNameEntry" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="Add" x:Name="AddNewListButton" Grid.Row="0" Grid.Column="1"/>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

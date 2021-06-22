@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Assignment2.MainPage">
+
+    <StackLayout>
+        <Frame BackgroundColor="#e9e5cd" Padding="24" CornerRadius="0">
+            <Label Text="Good Reads, Bad Writes" HorizontalTextAlignment="Center" TextColor="#75420e" FontSize="30" FontAttributes="Bold"/>
+        </Frame>
+        <SearchBar x:Name="SearchBar" Placeholder="Search anything" BackgroundColor="#aaaaaa" SearchButtonPressed="SearchBar_SearchButtonPressed"/>
+        <Button x:Name="MyBookListsButton" Text="My Book Lists" HorizontalOptions="Center" Clicked="MyBookListsButton_Clicked"/>
+        <Label Text="Recommendations" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold"/>
+        <CarouselView x:Name="WorksCarouselView" ItemsSource="{Binding RecommendedLists}" >
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <Frame HasShadow="True"
+                                   BorderColor="DarkGray"
+                                   CornerRadius="5"
+                                   Margin="20"
+                                   HeightRequest="300"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                               BackgroundColor="#e9e5cd">
+                            
+                            <ListView ItemsSource="{Binding .}"
+                                      HasUnevenRows="True" >
+                                <ListView.Header>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Text="Title" TextColor="black" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                        <Label Text="Author" TextColor="black" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                                    </Grid>
+                                </ListView.Header>
+                                
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <ViewCell.ContextActions>
+                                                <MenuItem Clicked="OnMore"
+                                                  CommandParameter="{Binding .}"
+                                                  Text="More" />
+                                            </ViewCell.ContextActions>
+                                            <ViewCell.View>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="auto"/>
+                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="2*"/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Image Source="{Binding CoverUrl}"
+                                                   WidthRequest="50"
+                                                   HeightRequest="50"
+                                                   HorizontalOptions="Center"/>
+                                                    <Label Text="{Binding Title}" TextColor="black" Grid.Column="1"/>
+                                                    <Label Text="{Binding AuthorNameShort}" TextColor="black" Grid.Column="2"/>
+                                                </Grid>
+
+                                                
+                                            </ViewCell.View>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </Frame>
+                    </StackLayout>
+
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+
+    </StackLayout>
+
+</ContentPage>
