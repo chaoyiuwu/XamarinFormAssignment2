@@ -10,7 +10,7 @@
         <SearchBar x:Name="SearchBar" Placeholder="Search anything" BackgroundColor="#aaaaaa" SearchButtonPressed="SearchBar_SearchButtonPressed"/>
         <Button x:Name="MyBookListsButton" Text="My Book Lists" HorizontalOptions="Center" Clicked="MyBookListsButton_Clicked"/>
         <Label Text="Recommendations" HorizontalTextAlignment="Center" FontSize="Title" FontAttributes="Bold"/>
-        <CarouselView x:Name="WorksCarouselView" ItemsSource="{Binding RecommendedLists}" >
+        <CarouselView x:Name="WorksCarouselView" >
             <CarouselView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout>
@@ -28,13 +28,14 @@
                                 <ListView.Header>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto"/>
-                                            <ColumnDefinition Width="2*"/>
-                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
+                                        <Label/>
                                         <Label Text="Title" TextColor="black" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                                         <Label Text="Author" TextColor="black" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                                     </Grid>
@@ -44,6 +45,9 @@
                                     <DataTemplate>
                                         <ViewCell>
                                             <ViewCell.ContextActions>
+                                                <MenuItem Clicked="OnAddToList"
+                                                  CommandParameter="{Binding .}"
+                                                  Text="Add To List" />
                                                 <MenuItem Clicked="OnMore"
                                                   CommandParameter="{Binding .}"
                                                   Text="More" />
@@ -51,16 +55,16 @@
                                             <ViewCell.View>
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="auto"/>
-                                                        <ColumnDefinition Width="2*"/>
-                                                        <ColumnDefinition Width="2*"/>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="*"/>
                                                     </Grid.ColumnDefinitions>
                                                     <Image Source="{Binding CoverUrl}"
                                                    WidthRequest="50"
                                                    HeightRequest="50"
                                                    HorizontalOptions="Center"/>
-                                                    <Label Text="{Binding Title}" TextColor="black" Grid.Column="1"/>
-                                                    <Label Text="{Binding AuthorNameShort}" TextColor="black" Grid.Column="2"/>
+                                                    <Label Text="{Binding Title}" TextColor="black" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                                    <Label Text="{Binding AuthorNameShort}" TextColor="black" Grid.Column="2" HorizontalTextAlignment="Center"/>
                                                 </Grid>
 
                                                 

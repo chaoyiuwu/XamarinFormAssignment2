@@ -14,7 +14,6 @@ namespace Assignment2.Models {
         public string key { get; set; }
         public string name { get; set; }
     }
-
     public class WorksJson {
         [JsonProperty]
         public string key { get; set; }
@@ -30,17 +29,17 @@ namespace Assignment2.Models {
         public string author_name { get; set; }
     }
 
-    public class Works : INotifyPropertyChanged {
-        public string Key { get; }
-        public string Title { get; }
-        public string AuthorNameShort { get; }
-        public string AuthorNameLong { get; }
-        public string CoverUrl { get; }
-        public string BookUrl { get; }
+    public class BookData : INotifyPropertyChanged {
+        public string Key { get; set; }
+        public string Title { get; set; }
+        public string AuthorNameShort { get; set; }
+        public string AuthorNameLong { get; set; }
+        public string CoverUrl { get; set; }
+        public string BookUrl { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public Works(WorksJson jsonObj, string coverUrl = "", string bookUrl = "") {
+        public BookData(WorksJson jsonObj, string coverUrl = "", string bookUrl = "") {
             if (jsonObj == null) {
                 Key = ""; Title = ""; AuthorNameShort = ""; AuthorNameLong = "";
             }

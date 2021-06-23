@@ -3,54 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Assignment2.BookListPage">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10">
             <Grid>
-                <Entry Placeholder="New List Name" x:Name="NewListNameEntry" Grid.Row="0" Grid.Column="0"/>
-                <Button Text="Add" x:Name="AddNewListButton" Grid.Row="0" Grid.Column="1" Clicked="AddNewListButton_Clicked"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Entry Placeholder="New List Name" x:Name="NewListNameEntry"/>
+                <Button Text="Add" x:Name="AddNewListButton" Grid.Column="1" Clicked="AddNewListButton_Clicked"/>
             </Grid>
-            <ListView x:Name="bookListsListView">
+            <ListView x:Name="bookListsListView" ItemTapped="bookListsListView_ItemTapped" RowHeight="100">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.ContextActions>
                                 <MenuItem Clicked="OnDelete"
-                                                  CommandParameter="{Binding .}"
-                                                  Text="Delete" />
+                                  CommandParameter="{Binding .}"
+                                  Text="Delete" 
+                                  IsDestructive="True"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
-                                <StackLayout HorizontalOptions="StartAndExpand">
-                                    <Grid Padding="1,5,1,1">
-                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" TextColor="AliceBlue" />
-                                        <ListView x:Name="addedWorksListView" ItemsSource="{Binding AddedWorks}">
-                                            <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <ViewCell>
-                                                        <ViewCell.ContextActions>
-                                                            <MenuItem Clicked="OnDeleteAddedBook"
-                                                             CommandParameter="{Binding .}"
-                                                             Text="Delete Added Book" />
-                                                        </ViewCell.ContextActions>
-                                                        <ViewCell.View>
-                                                            <Grid>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="auto"/>
-                                                                    <ColumnDefinition Width="2*"/>
-                                                                    <ColumnDefinition Width="2*"/>
-                                                                </Grid.ColumnDefinitions>
-                                                                <Image Source="{Binding CoverUrl}"
-                                                                   WidthRequest="50"
-                                                                   HeightRequest="50"
-                                                                   HorizontalOptions="Center"/> 
-                                                                <Label Text="{Binding Title}" TextColor="black" Grid.Column="1"/>
-                                                                <Label Text="{Binding AuthorNameShort}" TextColor="black" Grid.Column="2"/>
-                                                            </Grid>
-                                                        </ViewCell.View>
-                                                    </ViewCell>
-                                                </DataTemplate>
-                                            </ListView.ItemTemplate>
-                                        </ListView>
-                                    </Grid>
-                                </StackLayout>
+                                <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" TextColor="AliceBlue" />
+                                    <Label Text="{Binding BooksCount, StringFormat='{0} book(s) added'}" FontSize="Caption" Grid.Row="1"/>
+                                </Grid>
                             </ViewCell.View>
                         </ViewCell>
                     </DataTemplate>

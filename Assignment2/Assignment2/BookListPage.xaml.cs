@@ -9,24 +9,34 @@ using Xamarin.Forms.Xaml;
 using Assignment2.Models;
 using System.Collections.ObjectModel;
 
-namespace Assignment2
-{
+namespace Assignment2 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BookListPage : ContentPage
-    {
+    public partial class BookListPage : ContentPage {
+
         DBManager dbManager = new DBManager();
         ObservableCollection<BookList> AllBookLists;
-        Works CurrentWork;
+
+        BookData _CurrentBook;
+        BookData CurrentBook {
+            get {
+                return _CurrentBook;
+            }
+            set {
+                if (_CurrentBook != value) {
+                    _CurrentBook = value;
+                    OnPropertyChanged(nameof(CurrentBook));
+                }
+            }
+        }
 
         protected async override void OnAppearing() {
             AllBookLists = await dbManager.CreateTable();
             bookListsListView.ItemsSource = AllBookLists;
             base.OnAppearing();
-
         }
 
-
-        public BookListPage()  {
+        public BookListPage(BookData book = null)  {
+            CurrentBook = book;
             InitializeComponent();
         }
 
@@ -36,7 +46,7 @@ namespace Assignment2
             }else {
                 try {
                     var newList = new BookList();
-                    newList.AddedWorks = new List<Works>();
+                    newList.AddedBooks = new List<BookData>();
                     newList.Name = NewListNameEntry.Text;
                     dbManager.InsertNewList(newList);
                     DisplayAlert("Success", "List is added.", "OK");
@@ -60,8 +70,24 @@ namespace Assignment2
             }
         }
 
-        private void OnDeleteAddedBook(object sender, EventArgs e) {
-
+        private async void bookListsListView_ItemTapped(object sender, ItemTappedEventArgs e) {
+            var list = e.Item as BookList;
+            if (CurrentBook != null) {
+                try {
+                    if (list.AddedBooks == null) list.AddedBooks = new List<BookData>();
+                    list.AddedBooks.Add(CurrentBook);
+                    dbManager.UpdateList(list);
+                    await DisplayAlert("Success", "Book is added to list.", "OK");
+                    CurrentBook = null;
+                }
+                catch (Exception ex) {
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
+            }
+            else if (list.BooksCount != 0) {
+                await Navigation.PushAsync(new BookListDetailPage(list));
+            }
+            
         }
     }
 }

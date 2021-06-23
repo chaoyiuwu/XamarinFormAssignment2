@@ -12,9 +12,9 @@ namespace Assignment2 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class BookDetailPage : ContentPage {
         LibraryAPIManager Service;
-        private Works _CurrentBook;
-        public Works CurrentBook {
-            get { return _CurrentBook ?? new Works(null); }
+        private BookData _CurrentBook;
+        public BookData CurrentBook {
+            get { return _CurrentBook ?? new BookData(null); }
             set {
                 if (_CurrentBook != value) {
                     _CurrentBook = value;
@@ -23,7 +23,7 @@ namespace Assignment2 {
             }
         }
 
-        public BookDetailPage(LibraryAPIManager service, Works work) {
+        public BookDetailPage(LibraryAPIManager service, BookData work) {
             InitializeComponent();
             Service = service;
             CurrentBook = work;
@@ -40,7 +40,7 @@ namespace Assignment2 {
         }
 
         private async void AddToListButton_Clicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new AddToListPage());
+            await Navigation.PushAsync(new BookListPage(CurrentBook));
         }
     }
 }

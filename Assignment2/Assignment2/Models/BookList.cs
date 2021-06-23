@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 using SQLiteNetExtensions.Attributes;
+using System.Collections.ObjectModel;
 
 namespace Assignment2.Models {
     public class BookList : INotifyPropertyChanged {
@@ -25,20 +26,22 @@ namespace Assignment2.Models {
 
         }
 
-        private List<Works> _AddedWorks;
-        [TextBlob("AddedWorksBlobbed")]
-        public List<Works> AddedWorks {
-            get { return _AddedWorks; }
+        private List<BookData> _AddedBooks;
+        [TextBlob("AddedBooksBlobbed")]
+        public List<BookData> AddedBooks {
+            get { return _AddedBooks; }
             set {
-                if (value == _AddedWorks)
+                if (value == _AddedBooks)
                     return;
-                _AddedWorks = value;
+                _AddedBooks = value;
                 if (PropertyChanged != null) {
 
-                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(AddedWorks)));
+                    PropertyChanged(this, new PropertyChangedEventArgs(nameof(AddedBooks)));
                 }
             }
         }
-        public string AddedWorksBlobbed { get; set; }
+        public string AddedBooksBlobbed { get; set; }
+
+        public int BooksCount => AddedBooks != null ? AddedBooks.Count : 0;
     }
 }
