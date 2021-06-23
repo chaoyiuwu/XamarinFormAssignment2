@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -28,7 +27,6 @@ namespace Assignment2.Models {
         [JsonProperty]
         public string author_name { get; set; }
     }
-
     public class SearchedWorksJson {
         public string key { get; set; }
         public string title { get; set; }
@@ -37,20 +35,17 @@ namespace Assignment2.Models {
 
         public string[] author_name { get; set; }
     }
-
     public class SearchJson {
         public SearchedWorksJson[] docs { get; set; }
     }
 
-    public class BookData : INotifyPropertyChanged {
+    public class BookData {
         public string Key { get; set; }
         public string Title { get; set; }
         public string AuthorNameShort { get; set; }
         public string AuthorNameLong { get; set; }
         public string CoverUrl { get; set; }
         public string BookUrl { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// DEFAULT

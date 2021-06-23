@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 
 using SQLiteNetExtensions.Attributes;
-using System.Collections.ObjectModel;
 
 namespace Assignment2.Models {
     public class BookList : INotifyPropertyChanged {

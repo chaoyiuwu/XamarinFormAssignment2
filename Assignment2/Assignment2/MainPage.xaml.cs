@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Xamarin.Forms;
 using Assignment2.Models;
 using Xamarin.Essentials;
 
 namespace Assignment2 {
     public partial class MainPage : ContentPage {
+        DBManager dbManager = new DBManager();
         LibraryAPIManager Service = new LibraryAPIManager();
 
         public List<List<BookData>> _RecommendedLists;
@@ -22,17 +20,22 @@ namespace Assignment2 {
                 }
             }
         }
-        protected async override void OnAppearing() {
+        public MainPage() {  
+            InitializeComponent();
+
+            Initialize();
+        }
+
+        private async void Initialize() {
+            await dbManager.CreateTable();
+
             var tempLists = new List<List<BookData>>();
-            tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/romance"));
             tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/fantasy"));
+            tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/romance"));
+            tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/thrillers"));
 
             RecommendedLists = tempLists;
             WorksCarouselView.ItemsSource = RecommendedLists;
-            base.OnAppearing();
-        }
-        public MainPage() {  
-            InitializeComponent();
         }
 
         private async void SearchBar_SearchButtonPressed(object sender, EventArgs e) {

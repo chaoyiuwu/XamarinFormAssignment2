@@ -24,7 +24,9 @@ namespace Assignment2.Models {
             HttpResponseMessage response = await Client.GetAsync(uri);
             if (response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
-                worksJson = JsonConvert.DeserializeObject<SubjectJson>(content).works.Take(10).ToList();
+                Random rnd = new Random();
+                var subjectJson = JsonConvert.DeserializeObject<SubjectJson>(content);
+                worksJson = subjectJson.works.OrderBy(w => rnd.Next()).Take(10).ToList();
                 foreach (var w in worksJson) {
                     works.Add(new BookData(w, GetCoverLink(w.cover_id, "L"), string.Format(LibraryUrl + "{0}", w.key)));
                 }

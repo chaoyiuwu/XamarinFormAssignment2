@@ -20,20 +20,16 @@ namespace Assignment2.Models {
             return _booklists;
         }
 
-        public async void InsertNewList(BookList list)
-        {
+        public async void InsertNewList(BookList list) {
             await WriteOperations.InsertWithChildrenAsync(_connection, list);
         }
 
-        public async void DeleteList(BookList list)
-        {
-            await WriteOperations.DeleteAsync(_connection, list, false);
+        public async void UpdateList(BookList list) {
+            await WriteOperations.UpdateWithChildrenAsync(_connection, list);
         }
 
-        public async void UpdateList(BookList list)
-        {
-           await WriteOperations.UpdateWithChildrenAsync(_connection,list);
-
+        public async void DeleteList(BookList list) {
+            await WriteOperations.DeleteAsync(_connection, list, false);
         }
     }
 }
