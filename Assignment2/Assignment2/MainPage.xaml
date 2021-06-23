@@ -48,6 +48,9 @@
                                                 <MenuItem Clicked="OnAddToList"
                                                   CommandParameter="{Binding .}"
                                                   Text="Add To List" />
+                                                <MenuItem Clicked="OnMore"
+                                                          CommandParameter="{Binding .}"
+                                                          Text="See More"/>
                                             </ViewCell.ContextActions>
                                             <ViewCell.View>
                                                 <Grid>

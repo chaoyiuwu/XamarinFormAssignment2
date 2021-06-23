@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Assignment2.Models;
+using Xamarin.Essentials;
 
 namespace Assignment2 {
     public partial class MainPage : ContentPage {
@@ -23,7 +24,7 @@ namespace Assignment2 {
         }
         protected async override void OnAppearing() {
             var tempLists = new List<List<BookData>>();
-            //tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/romance"));
+            tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/romance"));
             tempLists.Add(await Service.GetWorksBySubjectAsync("subjects/fantasy"));
 
             RecommendedLists = tempLists;
@@ -57,6 +58,17 @@ namespace Assignment2 {
             var mi = ((MenuItem)sender);
             BookData book = mi.CommandParameter as BookData;
             await Navigation.PushAsync(new BookListPage(book));
+        }
+
+        private async void OnMore(object sender, EventArgs e) {
+            try {
+                var mi = ((MenuItem)sender);
+                BookData book = mi.CommandParameter as BookData;
+                await Browser.OpenAsync(book.BookUrl, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex) {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 }
