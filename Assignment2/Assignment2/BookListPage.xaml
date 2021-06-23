@@ -5,10 +5,57 @@
     <ContentPage.Content>
         <StackLayout>
             <Grid>
-                <Entry Text="New List Name" x:Name="NewListNameEntry" Grid.Row="0" Grid.Column="0"/>
-                <Button Text="Add" x:Name="AddNewListButton" Grid.Row="0" Grid.Column="1"/>
+                <Entry Placeholder="New List Name" x:Name="NewListNameEntry" Grid.Row="0" Grid.Column="0"/>
+                <Button Text="Add" x:Name="AddNewListButton" Grid.Row="0" Grid.Column="1" Clicked="AddNewListButton_Clicked"/>
             </Grid>
-
+            <ListView x:Name="bookListsListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnDelete"
+                                                  CommandParameter="{Binding .}"
+                                                  Text="Delete" />
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Grid Padding="1,5,1,1">
+                                        <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" TextColor="AliceBlue" />
+                                        <ListView x:Name="addedWorksListView" ItemsSource="{Binding AddedWorks}">
+                                            <ListView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <ViewCell>
+                                                        <ViewCell.ContextActions>
+                                                            <MenuItem Clicked="OnDeleteAddedBook"
+                                                             CommandParameter="{Binding .}"
+                                                             Text="Delete Added Book" />
+                                                        </ViewCell.ContextActions>
+                                                        <ViewCell.View>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="auto"/>
+                                                                    <ColumnDefinition Width="2*"/>
+                                                                    <ColumnDefinition Width="2*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <Image Source="{Binding CoverUrl}"
+                                                                   WidthRequest="50"
+                                                                   HeightRequest="50"
+                                                                   HorizontalOptions="Center"/> 
+                                                                <Label Text="{Binding Title}" TextColor="black" Grid.Column="1"/>
+                                                                <Label Text="{Binding AuthorNameShort}" TextColor="black" Grid.Column="2"/>
+                                                            </Grid>
+                                                        </ViewCell.View>
+                                                    </ViewCell>
+                                                </DataTemplate>
+                                            </ListView.ItemTemplate>
+                                        </ListView>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

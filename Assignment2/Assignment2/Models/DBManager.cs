@@ -15,7 +15,7 @@ namespace Assignment2.Models {
 
         public async Task<ObservableCollection<BookList>> CreateTable() {
             await _connection.CreateTableAsync<BookList>();
-            var booklists = await _connection.Table<BookList>().ToListAsync();
+            var booklists = await ReadOperations.GetAllWithChildrenAsync<BookList>(_connection);
             var _booklists = new ObservableCollection<BookList>(booklists);
             return _booklists;
         }

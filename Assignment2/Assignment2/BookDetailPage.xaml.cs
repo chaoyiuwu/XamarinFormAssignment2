@@ -25,11 +25,8 @@ namespace Assignment2 {
 
         public BookDetailPage(LibraryAPIManager service, Works work) {
             InitializeComponent();
-
             Service = service;
-            //GetBook(key);
             CurrentBook = work;
-
             BindingContext = this;
         }
 
@@ -43,11 +40,7 @@ namespace Assignment2 {
         }
 
         private async void AddToListButton_Clicked(object sender, EventArgs e) {
-            await Navigation.PushAsync(new BookListPage());
+            await Navigation.PushAsync(new AddToListPage());
         }
-
-        //private async void GetBook(string key) {
-        //    CurrentBook = await Service.GetBookByKey(key);
-        //}
     }
 }

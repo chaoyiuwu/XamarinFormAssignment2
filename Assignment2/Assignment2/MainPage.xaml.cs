@@ -42,7 +42,7 @@ namespace Assignment2 {
 
         }
 
-        public async void OnAdd(object sender, EventArgs e) {
+        public async void OnMore(object sender, EventArgs e) {
             var mi = ((MenuItem)sender);
             Works works = mi.CommandParameter as Works;
             await Navigation.PushAsync(new BookDetailPage(Service, works));
