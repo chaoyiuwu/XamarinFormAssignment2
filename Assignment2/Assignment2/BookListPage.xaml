@@ -31,7 +31,7 @@
                             <RowDefinition Height="auto"/>
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
-                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" TextColor="AliceBlue" />
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium" />
                                     <Label Text="{Binding BooksCount, StringFormat='{0} book(s) added'}" FontSize="Caption" Grid.Row="1"/>
                                 </Grid>
                             </ViewCell.View>

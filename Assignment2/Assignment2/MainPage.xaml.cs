@@ -9,7 +9,7 @@ using Assignment2.Models;
 
 namespace Assignment2 {
     public partial class MainPage : ContentPage {
-        LibraryAPIManager Service;
+        LibraryAPIManager Service = new LibraryAPIManager();
 
         public List<List<BookData>> _RecommendedLists;
         public List<List<BookData>> RecommendedLists {
@@ -30,19 +30,18 @@ namespace Assignment2 {
             WorksCarouselView.ItemsSource = RecommendedLists;
             base.OnAppearing();
         }
-        public MainPage(LibraryAPIManager service) {  
-            InitializeComponent();           
-            Service = service;
+        public MainPage() {  
+            InitializeComponent();
         }
 
-        private void SearchBar_SearchButtonPressed(object sender, EventArgs e) {
-            
-        }
-
-        public async void OnMore(object sender, EventArgs e) {
-            var mi = ((MenuItem)sender);
-            BookData works = mi.CommandParameter as BookData;
-            await Navigation.PushAsync(new BookDetailPage(Service, works));
+        private async void SearchBar_SearchButtonPressed(object sender, EventArgs e) {
+            var searchResults = await Service.GetSearchResultAsync(SearchBar.Text);
+            if (searchResults.Count == 0) {
+                await DisplayAlert("No Search Results Found", "", "OK");
+            }
+            else {
+                await Navigation.PushAsync(new SearchResultPage(searchResults));
+            }
         }
 
         private async void MyBookListsButton_Clicked(object sender, EventArgs e) {
@@ -56,8 +55,8 @@ namespace Assignment2 {
 
         public async void OnAddToList(object sender, EventArgs e) {
             var mi = ((MenuItem)sender);
-            BookData works = mi.CommandParameter as BookData;
-            await Navigation.PushAsync(new BookListPage(works));
+            BookData book = mi.CommandParameter as BookData;
+            await Navigation.PushAsync(new BookListPage(book));
         }
     }
 }

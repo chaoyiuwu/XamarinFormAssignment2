@@ -8,7 +8,7 @@
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -16,8 +16,8 @@
                                 <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
                         <Label/>
-                        <Label Text="Title" TextColor="White" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
-                            <Label Text="Author" TextColor="White" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
+                        <Label Text="Title" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
+                            <Label Text="Author" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="Large"/>
                         </Grid>
                     </ListView.Header>
 
@@ -32,16 +32,16 @@
                                 <ViewCell.View>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="100"/>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                         <Image Source="{Binding CoverUrl}"
-                                                   WidthRequest="50"
-                                                   HeightRequest="50"
+                                                   WidthRequest="100"
+                                                   HeightRequest="100"
                                                    HorizontalOptions="Center"/>
-                                    <Label Text="{Binding Title}" TextColor="#e9e5cd" Grid.Column="1" HorizontalTextAlignment="Center"/>
-                                    <Label Text="{Binding AuthorNameShort}" TextColor="#e9e5cd" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding Title}" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding AuthorNameLong}" Grid.Column="2" HorizontalTextAlignment="Center"/>
                                     </Grid>
 
 

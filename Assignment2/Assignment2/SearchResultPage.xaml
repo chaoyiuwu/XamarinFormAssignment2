@@ -3,10 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Assignment2.SearchResultPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10">
+            <ListView x:Name="searchResultListView"
+                      HasUnevenRows="True" >
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Label/>
+                        <Label Text="Title" Grid.Column="1" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                        <Label Text="Author" Grid.Column="2" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    </Grid>
+                </ListView.Header>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.ContextActions>
+                                <MenuItem Clicked="OnAddToList"
+                                                  CommandParameter="{Binding .}"
+                                                  Text="Add To List" />
+                            </ViewCell.ContextActions>
+                            <ViewCell.View>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding CoverUrl}"
+                                                   WidthRequest="50"
+                                                   HeightRequest="50"
+                                                   HorizontalOptions="Center"/>
+                                    <Label Text="{Binding Title}" Grid.Column="1" HorizontalTextAlignment="Center"/>
+                                    <Label Text="{Binding AuthorNameShort}" Grid.Column="2" HorizontalTextAlignment="Center"/>
+                                </Grid>
+
+
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

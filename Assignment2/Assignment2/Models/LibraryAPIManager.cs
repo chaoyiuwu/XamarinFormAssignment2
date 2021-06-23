@@ -19,24 +19,40 @@ namespace Assignment2.Models {
         public async Task<List<BookData>> GetWorksBySubjectAsync(string subject) {
             Uri uri = new Uri(string.Format(LibraryUrl + "{0}" + dotJson, subject));
             var worksJson = new List<WorksJson>();
+            var works = new List<BookData>();
+
             HttpResponseMessage response = await Client.GetAsync(uri);
             if (response.IsSuccessStatusCode) {
                 string content = await response.Content.ReadAsStringAsync();
                 worksJson = JsonConvert.DeserializeObject<SubjectJson>(content).works.Take(10).ToList();
-            }
-
-            var works = new List<BookData>();
-            foreach (var w in worksJson) {
-                works.Add(new BookData(w, GetCoverLink(w.cover_id, "L"), string.Format(LibraryUrl + "{0}", w.key)));
+                foreach (var w in worksJson) {
+                    works.Add(new BookData(w, GetCoverLink(w.cover_id, "L"), string.Format(LibraryUrl + "{0}", w.key)));
+                }
             }
 
             return works;
         }
 
-        
+        public async Task<List<BookData>> GetSearchResultAsync(string searchText) {
+            Uri uri = new Uri(string.Format(LibraryUrl + "search.json?q={0}", searchText.Replace(' ', '+')));
+            var worksJson = new List<SearchedWorksJson>();
+            var works = new List<BookData>();
+
+            HttpResponseMessage response = await Client.GetAsync(uri);
+            if (response.IsSuccessStatusCode) {
+                string content = await response.Content.ReadAsStringAsync();
+                worksJson = JsonConvert.DeserializeObject<SearchJson>(content).docs.ToList();
+
+                foreach (var w in worksJson) {
+                    works.Add(new BookData(w, GetCoverLink(w.cover_i, "L"), string.Format(LibraryUrl + "{0}", w.key)));
+                }
+            }
+
+            return works;
+        }
 
         public string GetCoverLink(string coverId, string size) {
-            return string.Format("https://covers.openlibrary.org/b/id/{0}-{1}.jpg", coverId, size);
+            return coverId != null ? string.Format("https://covers.openlibrary.org/b/id/{0}-{1}.jpg", coverId, size) : "";
         }
     }
 }
